@@ -233,7 +233,232 @@
     transition: opacity .08s;
   }
 
-  /* level-up popup */
+  /* ── Intro screen ── */
+  #screen-intro {
+    position: fixed; inset: 0; z-index: 100;
+    background: #000;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 18px;
+    transition: opacity .6s ease;
+  }
+  #screen-intro.fade-out { opacity: 0; pointer-events: none; }
+
+  #intro-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2rem, 10vw, 5rem);
+    letter-spacing: .12em;
+    color: var(--cyan);
+    text-shadow: 0 0 30px var(--cyan), 0 0 80px rgba(0,245,255,.4);
+    opacity: 0;
+    transform: scale(.92);
+    transition: opacity .9s ease, transform .9s ease;
+  }
+  #intro-name.show { opacity: 1; transform: scale(1); }
+
+  #intro-presents {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(.7rem, 3vw, 1.1rem);
+    letter-spacing: .35em;
+    color: rgba(255,255,255,.45);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity .8s ease .5s;
+  }
+  #intro-presents.show { opacity: 1; }
+
+  /* ── Terms screen ── */
+  #screen-terms {
+    position: fixed; inset: 0; z-index: 99;
+    background: radial-gradient(ellipse at center, rgba(157,0,255,.07) 0%, #04000f 70%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .5s ease;
+    overflow-y: auto;
+  }
+  #screen-terms.visible { opacity: 1; pointer-events: all; }
+
+  #terms-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(1.1rem, 5vw, 2rem);
+    letter-spacing: .1em;
+    color: var(--cyan);
+    text-shadow: 0 0 20px var(--cyan), 0 0 50px rgba(0,245,255,.3);
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  #terms-box {
+    max-width: 540px; width: 100%;
+    background: rgba(0,245,255,.04);
+    border: 1px solid rgba(0,245,255,.15);
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(.62rem, 2.2vw, .78rem);
+    line-height: 1.85;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.55);
+    text-align: left;
+  }
+
+  #terms-check-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 20px;
+    max-width: 540px; width: 100%;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(.6rem, 2vw, .75rem);
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.6);
+    cursor: pointer;
+  }
+  #terms-checkbox {
+    width: 18px; height: 18px; flex-shrink: 0;
+    accent-color: var(--cyan);
+    cursor: pointer;
+  }
+
+  #terms-btns {
+    display: flex; gap: 16px; margin-top: 22px;
+    flex-wrap: wrap; justify-content: center;
+  }
+
+  .btn-accept {
+    padding: 14px 40px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700; font-size: clamp(.78rem, 2.5vw, .9rem);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: #001a00;
+    background: linear-gradient(135deg, var(--green), #007a0a);
+    border: none; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 28px rgba(57,255,20,.5);
+    transition: transform .15s, box-shadow .15s, opacity .2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-accept:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; transform: none !important; }
+  .btn-accept:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(57,255,20,.75); }
+  .btn-accept:not(:disabled):active { transform: scale(.96); }
+
+  .btn-decline {
+    padding: 14px 40px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700; font-size: clamp(.78rem, 2.5vw, .9rem);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(135deg, #8b0000, #ff2d78);
+    border: none; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 28px rgba(255,45,120,.45);
+    transition: transform .15s, box-shadow .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-decline:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(255,45,120,.7); }
+  .btn-decline:active { transform: scale(.96); }
+
+  /* ── Access Denied screen ── */
+  #screen-denied {
+    position: fixed; inset: 0; z-index: 98;
+    background: #0a0000;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 18px; padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .5s ease;
+  }
+  #screen-denied.visible { opacity: 1; pointer-events: all; }
+
+  #denied-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2rem, 10vw, 4.5rem);
+    letter-spacing: .1em;
+    color: var(--pink);
+    text-shadow: 0 0 30px var(--pink), 0 0 80px rgba(255,45,120,.5);
+    text-align: center;
+    animation: denied-pulse 2s ease-in-out infinite;
+  }
+  @keyframes denied-pulse {
+    0%,100% { text-shadow: 0 0 20px var(--pink), 0 0 50px rgba(255,45,120,.4); }
+    50%      { text-shadow: 0 0 50px var(--pink), 0 0 100px rgba(255,45,120,.7); }
+  }
+
+  #denied-body {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(.68rem, 2.5vw, .9rem);
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.45);
+    text-align: center;
+    line-height: 2.2;
+    max-width: 460px;
+  }
+  #denied-body strong {
+    color: rgba(255,255,255,.75);
+    display: block; margin-bottom: 4px;
+  }
+
+  /* ── Skin selector ── */
+  #skin-row {
+    display: flex; gap: 10px; margin-top: 20px;
+    flex-wrap: wrap; justify-content: center;
+    pointer-events: all;
+  }
+  .skin-btn {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.15);
+    cursor: pointer; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s, border-color .15s, box-shadow .15s;
+    -webkit-tap-highlight-color: transparent;
+    background: transparent;
+  }
+  .skin-btn:hover  { transform: scale(1.15); }
+  .skin-btn.active { border-color: #fff; box-shadow: 0 0 14px rgba(255,255,255,.6); }
+  .skin-btn.locked { opacity: .38; cursor: not-allowed; }
+  .skin-lock {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .75rem; color: rgba(255,255,255,.6);
+  }
+  .skin-label {
+    margin-top: 6px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: .55rem; letter-spacing: .12em;
+    color: rgba(255,255,255,.3); text-align: center;
+  }
+
+  /* ── Daily challenge ── */
+  .btn-daily {
+    margin-top: 10px;
+    padding: 12px 36px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700; font-size: clamp(.75rem, 2.5vw, .85rem);
+    letter-spacing: .14em; text-transform: uppercase;
+    color: #001a00;
+    background: linear-gradient(135deg, #ffe600, #ff8c00);
+    border: none; border-radius: 6px; cursor: pointer;
+    box-shadow: 0 0 24px rgba(255,230,0,.5);
+    transition: transform .15s, box-shadow .15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-daily:hover  { transform: translateY(-2px); box-shadow: 0 0 40px rgba(255,230,0,.75); }
+  .btn-daily:active { transform: scale(.96); }
+
+  #daily-badge {
+    position: absolute; top: 20px; right: 100px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: .6rem; letter-spacing: .14em;
+    color: var(--yellow);
+    text-shadow: 0 0 10px var(--yellow);
+    border: 1px solid rgba(255,230,0,.4);
+    padding: 4px 8px; border-radius: 4px;
+    background: rgba(255,230,0,.07);
+    display: none;
+  }
+
+  /* ── level-up popup ── */
   #levelup-popup {
     position: fixed; left: 50%; top: 30%;
     transform: translateX(-50%) translateY(-20px);
@@ -252,6 +477,43 @@
 </head>
 <body>
 
+<!-- ── Intro screen ── -->
+<div id="screen-intro">
+  <div id="intro-name">VRISHAB VARUN</div>
+  <div id="intro-presents">PRESENTS</div>
+</div>
+
+<!-- ── Terms screen ── -->
+<div id="screen-terms">
+  <div id="terms-title">TERMS OF USE &amp; PRIVACY</div>
+  <div id="terms-box">
+    NEON RUSH is developed and owned by Vrishab Varun.<br><br>
+    This game does not collect personal data. It may store high scores locally on your device.<br><br>
+    All game content, including visuals, design, and code, is the intellectual property of Vrishab Varun.
+    Unauthorized copying or redistribution is strictly prohibited.<br><br>
+    &copy; 2026 Vrishab Varun. All rights reserved.
+  </div>
+  <label id="terms-check-row">
+    <input type="checkbox" id="terms-checkbox"/>
+    I have read and agree to the terms
+  </label>
+  <div id="terms-btns">
+    <button class="btn-accept" id="btn-accept" disabled>ACCEPT</button>
+    <button class="btn-decline" id="btn-decline">DECLINE</button>
+  </div>
+</div>
+
+<!-- ── Access Denied screen ── -->
+<div id="screen-denied">
+  <div id="denied-title">ACCESS DENIED</div>
+  <div id="denied-body">
+    <strong>You had one job — accept or leave.</strong>
+    No agreement, no game.<br>
+    Simple as that.<br><br>
+    Close the tab.
+  </div>
+</div>
+
 <canvas id="c"></canvas>
 
 <!-- HUD -->
@@ -264,6 +526,7 @@
   <div id="mode-badge">NORMAL</div>
   <div id="multiplier-badge">×1.0</div>
   <div id="level-badge">LVL 1</div>
+  <div id="daily-badge">DAILY</div>
 </div>
 
 <!-- Level-up popup -->
@@ -283,6 +546,9 @@
   <div class="game-title">NEON RUSH</div>
   <div class="game-sub">infinite runner</div>
   <button class="btn" id="btn-start">START GAME</button>
+  <button class="btn-daily" id="btn-daily">⚡ DAILY CHALLENGE</button>
+  <div id="skin-row"></div>
+  <div class="skin-label" id="skin-name-label">NEON</div>
   <div class="controls-hint">
     SPACE / TAP — Jump &nbsp;·&nbsp; Double jump available<br>
     Survive as long as you can · Speed increases over time
@@ -297,7 +563,7 @@
   <div class="hi-label" id="new-best" style="display:none">✦ NEW BEST ✦</div>
   <div class="score-label" id="dead-best" style="margin-top:4px"></div>
   <div class="score-label" id="dead-level" style="margin-top:8px;color:var(--green)"></div>
-  <button class="btn btn-rewarded" id="btn-revive">▶ WATCH AD · CONTINUE</button>
+  <div class="score-label" id="dead-daily" style="margin-top:6px;color:var(--yellow);display:none"></div>
   <button class="btn" id="btn-retry" style="margin-top:10px">PLAY AGAIN</button>
 </div>
 
@@ -334,6 +600,79 @@ const OBS_W    = () => 28   * SCALE;
 // ── localStorage hi-score ─────────────────────
 function loadHi()   { return parseFloat(localStorage.getItem('neonrush_hi') || '0'); }
 function saveHi(v)  { localStorage.setItem('neonrush_hi', String(Math.floor(v))); }
+
+// ── Skins ─────────────────────────────────────
+const SKINS = [
+  { id:'default', name:'NEON',    colors:['#00f5ff','#9d00ff','#ff2d78'], trail:'#00f5ff', unlock:0    },
+  { id:'inferno', name:'INFERNO', colors:['#ff6a00','#ff2d00','#ffe600'], trail:'#ff6a00', unlock:250  },
+  { id:'ghost',   name:'GHOST',   colors:['#e0e0ff','#8899bb','#445566'], trail:'#ccddff', unlock:500  },
+  { id:'toxic',   name:'TOXIC',   colors:['#39ff14','#00cc44','#aaff00'], trail:'#39ff14', unlock:1000 },
+  { id:'royal',   name:'ROYAL',   colors:['#ffd700','#9d00ff','#0066ff'], trail:'#ffd700', unlock:2000 },
+  { id:'void',    name:'VOID',    colors:['#440055','#bb00ff','#ff2d78'], trail:'#ff00ff', unlock:3500 },
+];
+let activeSkinIdx = 0;
+
+function getUnlockedSkins() {
+  const best = loadHi();
+  return SKINS.map(s => s.unlock <= best);
+}
+function getSkin() { return SKINS[activeSkinIdx]; }
+
+function buildSkinRow() {
+  const row = document.getElementById('skin-row');
+  row.innerHTML = '';
+  const unlocked = getUnlockedSkins();
+  SKINS.forEach((sk, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'skin-btn' + (i===activeSkinIdx?' active':'') + (!unlocked[i]?' locked':'');
+    btn.title = unlocked[i] ? sk.name : `Unlock at ${sk.unlock} pts`;
+    // diamond SVG preview using skin colors
+    btn.innerHTML = `<svg width="26" height="30" viewBox="0 0 26 30">
+      <defs><linearGradient id="sg${i}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${sk.colors[0]}"/>
+        <stop offset="50%" stop-color="${sk.colors[1]}"/>
+        <stop offset="100%" stop-color="${sk.colors[2]}"/>
+      </linearGradient></defs>
+      <polygon points="13,0 26,12 13,30 0,12" fill="url(#sg${i})"/>
+      ${!unlocked[i] ? '<text x="13" y="18" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.55)">🔒</text>' : ''}
+    </svg>`;
+    btn.style.border = i===activeSkinIdx ? '2px solid #fff' : '2px solid rgba(255,255,255,.15)';
+    btn.style.boxShadow = i===activeSkinIdx ? `0 0 14px ${sk.colors[0]}88` : '';
+    btn.addEventListener('click', () => {
+      if (!unlocked[i]) return;
+      activeSkinIdx = i;
+      buildSkinRow();
+      document.getElementById('skin-name-label').textContent = sk.name;
+    });
+    row.appendChild(btn);
+  });
+}
+
+// ── Seeded RNG (mulberry32) ───────────────────
+function makeSeed(str) {
+  let h = 0;
+  for (let i=0; i<str.length; i++) { h = Math.imul(31, h) + str.charCodeAt(i) | 0; }
+  return h >>> 0;
+}
+function mulberry32(seed) {
+  let s = seed;
+  return function() {
+    s |= 0; s = s + 0x6D2B79F5 | 0;
+    let t = Math.imul(s ^ s >>> 15, 1 | s);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+}
+function loadDailyBest() { return parseFloat(localStorage.getItem('neonrush_daily_'+todayKey())||'0'); }
+function saveDailyBest(v) { localStorage.setItem('neonrush_daily_'+todayKey(), String(Math.floor(v))); }
+
+// ── Daily mode state ──────────────────────────
+let dailyMode = false;
+let seededRng  = Math.random; // replaced when daily active
 
 // ── State ─────────────────────────────────────
 let state      = 'menu';
@@ -477,6 +816,13 @@ function initGame() {
   obstacles = []; particles = []; powerups = [];
   nextObstacleIn = 0; nextPowerupIn = 10 + Math.random()*10;
 
+  // daily mode: use seeded RNG so everyone plays the same obstacles
+  if (dailyMode) {
+    seededRng = mulberry32(makeSeed(todayKey()));
+  } else {
+    seededRng = Math.random;
+  }
+
   player.x = W*.18; player.y = GROUND-PLAYER_H();
   player.vy = 0; player.jumpsLeft = 2; player.onGround = true;
   player.trail = []; player.dead = false;
@@ -534,13 +880,14 @@ function spawnCollectParticles(px, py, color) {
 
 // ── Obstacle spawning ─────────────────────────
 function spawnObstacle() {
-  const h = OBS_MIN_H()+Math.random()*(OBS_MAX_H()-OBS_MIN_H());
-  const w = OBS_W()+Math.random()*OBS_W()*1.2;
-  if (Math.random()<.12 && score>300) {
-    obstacles.push({x:W+10,w,h,y:GROUND-h,glitch:Math.random()>.6});
+  const rng = seededRng;
+  const h = OBS_MIN_H()+rng()*(OBS_MAX_H()-OBS_MIN_H());
+  const w = OBS_W()+rng()*OBS_W()*1.2;
+  if (rng()<.12 && score>300) {
+    obstacles.push({x:W+10,w,h,y:GROUND-h,glitch:rng()>.6});
     obstacles.push({x:W+10+w+30*SCALE,w:w*.75,h:h*.7,y:GROUND-h*.7,glitch:false});
   } else {
-    obstacles.push({x:W+10,w,h,y:GROUND-h,glitch:Math.random()>.7});
+    obstacles.push({x:W+10,w,h,y:GROUND-h,glitch:rng()>.7});
   }
 }
 
@@ -666,8 +1013,8 @@ function drawPlayer() {
   if(player.trail.length>18) player.trail.shift();
   player.trail.forEach((pt,i) => {
     const a=(i/player.trail.length)*pt.t*.5, r=(i/player.trail.length)*pw*.45;
-    ctx.save(); ctx.shadowColor='#00f5ff'; ctx.shadowBlur=12;
-    ctx.globalAlpha=a; ctx.fillStyle='#00f5ff';
+    ctx.save(); ctx.shadowColor=getSkin().trail; ctx.shadowBlur=12;
+    ctx.globalAlpha=a; ctx.fillStyle=getSkin().trail;
     ctx.fillRect(pt.x-r/2,pt.y-r/2,r,r); ctx.restore();
     pt.t *= .93;
   });
@@ -679,12 +1026,12 @@ function drawPlayer() {
     ctx.beginPath(); ctx.ellipse(cx,GROUND+3,pw*.45,4*SCALE,0,0,Math.PI*2); ctx.fill(); ctx.restore();
   }
 
-  ctx.save(); ctx.shadowColor='#00f5ff'; ctx.shadowBlur=20;
+  ctx.save(); ctx.shadowColor=getSkin().trail; ctx.shadowBlur=20;
   ctx.beginPath();
   ctx.moveTo(cx,py); ctx.lineTo(cx+pw/2,cy-ph*.05); ctx.lineTo(cx,py+ph); ctx.lineTo(cx-pw/2,cy-ph*.05);
   ctx.closePath();
   const bg=ctx.createLinearGradient(px,py,px,py+ph);
-  bg.addColorStop(0,'#00f5ff'); bg.addColorStop(.5,'#9d00ff'); bg.addColorStop(1,'#ff2d78');
+  bg.addColorStop(0,getSkin().colors[0]); bg.addColorStop(.5,getSkin().colors[1]); bg.addColorStop(1,getSkin().colors[2]);
   ctx.fillStyle=bg; ctx.fill();
   ctx.shadowBlur=0;
   ctx.beginPath();
@@ -947,6 +1294,21 @@ function endGame() {
   document.getElementById('new-best').style.display = isNew?'block':'none';
   document.getElementById('dead-best').textContent  = isNew?'':`BEST: ${Math.floor(hiScore)}`;
   document.getElementById('dead-level').textContent = `REACHED LEVEL ${level}`;
+
+  // daily score
+  const dailyEl = document.getElementById('dead-daily');
+  if (dailyMode) {
+    const prevDaily = loadDailyBest();
+    if (score > prevDaily) saveDailyBest(score);
+    const best = Math.max(score, prevDaily);
+    dailyEl.textContent = `DAILY BEST: ${Math.floor(best)}`;
+    dailyEl.style.display = 'block';
+  } else {
+    dailyEl.style.display = 'none';
+  }
+
+  // refresh skin row so newly unlocked skins appear
+  buildSkinRow();
   showScreen('screen-dead');
 }
 
@@ -1002,29 +1364,82 @@ canvas.addEventListener('mousedown', ()=>doJump());
 
 // ── Buttons ───────────────────────────────────
 document.getElementById('btn-start').addEventListener('click', ()=>{
+  dailyMode = false;
+  document.getElementById('daily-badge').style.display = 'none';
+  hideScreens(); setHUDVisible(true); initGame(); state='playing'; CG.gameplayStart();
+});
+document.getElementById('btn-daily').addEventListener('click', ()=>{
+  dailyMode = true;
+  document.getElementById('daily-badge').style.display = 'block';
   hideScreens(); setHUDVisible(true); initGame(); state='playing'; CG.gameplayStart();
 });
 document.getElementById('btn-retry').addEventListener('click', ()=>{
+  // keep dailyMode as it was
+  document.getElementById('daily-badge').style.display = dailyMode ? 'block' : 'none';
   hideScreens(); setHUDVisible(true); initGame(); state='playing'; CG.gameplayStart();
 });
-document.getElementById('btn-revive').addEventListener('click', ()=>{
-  CG.requestRewardedAd(
-    ()=>{
-      hideScreens(); setHUDVisible(true);
-      lives=1; invincible=120; player.dead=false;
-      player.y=GROUND-PLAYER_H(); player.vy=0; player.onGround=true; player.jumpsLeft=2; player.trail=[];
-      shieldActive=false; slowActive=false; state='playing'; CG.gameplayStart(); updateHUD();
-    },
-    ()=>{}
-  );
-});
-
-// ── Boot ──────────────────────────────────────
-buildCity(); buildStars(); setHUDVisible(false);
-showScreen('screen-menu');
-lastTime=performance.now();
+// ── Boot / Intro / Terms ───────────────────────
+buildCity(); buildStars(); buildSkinRow(); setHUDVisible(false);
+lastTime = performance.now();
 CG.init();
 requestAnimationFrame(loop);
+
+function goToMenu() {
+  document.getElementById('screen-terms').classList.remove('visible');
+  showScreen('screen-menu');
+}
+
+function showTerms() {
+  document.getElementById('screen-terms').classList.add('visible');
+}
+
+function showDenied() {
+  document.getElementById('screen-terms').classList.remove('visible');
+  document.getElementById('screen-denied').classList.add('visible');
+}
+
+// Terms checkbox enables Accept button
+document.getElementById('terms-checkbox').addEventListener('change', function() {
+  document.getElementById('btn-accept').disabled = !this.checked;
+});
+
+document.getElementById('btn-accept').addEventListener('click', () => {
+  localStorage.setItem('termsAccepted', Date.now().toString());
+  goToMenu();
+});
+
+document.getElementById('btn-decline').addEventListener('click', showDenied);
+
+// Intro animation → then route to menu or terms
+(function runIntro() {
+  const introEl      = document.getElementById('screen-intro');
+  const nameEl       = document.getElementById('intro-name');
+  const presentsEl   = document.getElementById('intro-presents');
+
+  // Hide game screens during intro
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+
+  // Step 1: fade in name
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      nameEl.classList.add('show');
+      presentsEl.classList.add('show');
+    }, 120);
+  });
+
+  // Step 2: after 2.5s fade out intro, then decide terms or menu
+  setTimeout(() => {
+    introEl.classList.add('fade-out');
+    setTimeout(() => {
+      introEl.style.display = 'none';
+      if (localStorage.getItem('termsAccepted') && Date.now() - parseInt(localStorage.getItem('termsAccepted')) < 86400000) {
+        goToMenu();
+      } else {
+        showTerms();
+      }
+    }, 650); // wait for fade-out transition
+  }, 2500);
+})();
 </script>
 </body>
 </html>
